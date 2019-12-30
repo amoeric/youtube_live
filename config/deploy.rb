@@ -1,8 +1,8 @@
 `ssh-add`
 lock "~> 3.11.1"
 
-set :application, "youtube_share" #部署資料夾名
-set :repo_url, "git@gitlab.com:newpowerparty/candidate2020_admin.git" #ssh
+set :application, "youtube_live" #部署資料夾名
+set :repo_url, "git@gitlab.com:newpowerparty/youtube_live.git" #ssh
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

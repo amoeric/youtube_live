@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div id="el-index" class="col-12 m-auto">
+      <h1>時代力量巡迴直播</h1>
+      <div class="search-form-static">
+      <el-form ref="form" :model="query" label-width="120px">
+        <el-form-item>
+          <button type="primary" @click="search">重新獲取直播</button>
+        </el-form-item>
+      </el-form>
+      </div>
+      <iframe width="800" height="500" :src="embed_url"></iframe>
+      <iframe width="800" height="500" :src="live_talk"></iframe>
+      
+    </div>
+  
+    <div class="col-12">
+      <%= @video.content %>
+      <article><h3>因youtube直播時長限制，如果沒有直播畫面請按下「重新獲取直播」</h3></article>
+    </div>
+  </div>
+</div>

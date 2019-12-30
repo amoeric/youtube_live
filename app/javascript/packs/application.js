@@ -15,4 +15,60 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+import Vue from 'vue/dist/vue.esm'
+import axios from 'axios'
+import Qs from 'qs'
+
+import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/ja'
+import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.use(ElementUI, { locale })
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new Vue({
+    el: '#el-index',
+    data: function(){ 
+      return {
+        staffs: [],
+        query: {
+          name_cont: null,
+          age_gteq: 0,
+          age_lteq: 100,
+          joined_on_gteq: null,
+          joined_on_lteq: null
+        },
+        embed_url: "",
+        live_talk: "",
+        domain: ""
+      }
+    },
+    created: function(){
+      this.search()
+    },
+    methods:{
+      notify: function(msg){
+        this.$notify({
+          type: 'error',
+          title: 'Error',
+          message: msg
+        });
+      },  
+      search: function(){
+        axios.get('/api/v1/searches')
+        .then((response) => {
+          console.log(response);
+          this.live_talk = `https://www.youtube.com/live_chat?v=${response.data.video_id}&embed_domain=lvh.me:3000`
+          console.log(this.live_talk);
+          this.embed_url = `https:${response.data.embed_url}?autoplay=1`;
+          console.log(this.embed_url);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.notify(error.message);
+        })
+      }
+    }
+  })
+})

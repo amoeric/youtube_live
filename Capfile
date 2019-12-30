@@ -7,6 +7,7 @@ require "capistrano/deploy"
 require "capistrano/rails"
 require 'capistrano/passenger'
 require 'rvm1/capistrano3'
+require 'capistrano/foreman'
 # Load the SCM plugin appropriate to your project:
 #
 # require "capistrano/scm/hg"
@@ -39,3 +40,14 @@ install_plugin Capistrano::SCM::Git
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
+
+set :foreman_use_sudo, false # Set to :rbenv for rbenv sudo, :rvm for rvmsudo or true for normal sudo
+set :foreman_roles, :all
+set :foreman_init_system, 'upstart'
+set :foreman_export_path, ->{ File.join(Dir.home, '.init') }
+set :foreman_app, -> { fetch(:application) }
+set :foreman_app_name_systemd, -> { "#{ fetch(:foreman_app) }.target" }
+set :foreman_options, ->{ {
+  app: application,
+  log: File.join(shared_path, 'log')
+} }
