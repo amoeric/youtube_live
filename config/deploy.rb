@@ -1,7 +1,7 @@
 `ssh-add`
 lock "~> 3.11.1"
 
-set :application, "youtube_live" #部署資料夾名
+set :application, "npp_youtube_webpack" #部署資料夾名
 set :repo_url, "git@gitlab.com:newpowerparty/npp_youtube_webpack.git" #ssh
 
 # Default branch is :master
